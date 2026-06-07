@@ -2,60 +2,121 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
 
+  // Required
   final TextEditingController controller;
   final String hintText;
-  // final IconData prefixIcon;
-  final IconData iconData;   // icon left right
+
+  // State
   final bool obscureText;
+  final bool enabled;
+  final bool readOnly;
+
+  // Input Configuration
   final TextInputType keyboardType;
+  final TextInputAction? textInputAction;
+  final int? maxLength;
+  final int? maxLines;
+
+  // Validation
   final String? Function(String?)? validator;
+
+  // Icons
+  final IconData? prefixIcon;
+  final IconData? suffixIcon;
+  final Color? iconColor;
+
+  // Styling
+  final TextStyle? textStyle;
+
+  final InputBorder? border;
+  final InputBorder? enabledBorder;
+  final InputBorder? focusedBorder;
+  final InputBorder? errorBorder;
+
+  final EdgeInsetsGeometry? contentPadding;
+
+  // Events
+  final Function(String)? onChanged;
+  final VoidCallback? onTap;
 
   const CustomTextField({
     super.key,
     required this.controller,
     required this.hintText,
-    required this.iconData,
+
     this.obscureText = false,
+    this.enabled = true,
+    this.readOnly = false,
+
     this.keyboardType = TextInputType.text,
+    this.textInputAction,
+
+    this.maxLength,
+    this.maxLines,
+
     this.validator,
-});
+
+    this.prefixIcon,
+    this.suffixIcon,
+    this.iconColor,
+
+    this.textStyle,
+
+    this.border,
+    this.enabledBorder,
+    this.focusedBorder,
+    this.errorBorder,
+
+    this.contentPadding,
+
+    this.onChanged,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-
     return TextFormField(
       controller: controller,
-      obscureText:  obscureText,
+      obscureText: obscureText,
+      enabled: enabled,
+      readOnly: readOnly,
+
       keyboardType: keyboardType,
-      validator:  validator,
+      textInputAction: textInputAction,
+
+      maxLength: maxLength,
+      maxLines: maxLines,
+
+      validator: validator,
+
+      onChanged: onChanged,
+      onTap: onTap,
+
+      style: textStyle,
 
       decoration: InputDecoration(
         hintText: hintText,
-        prefixIcon: Icon(iconData),
-        border: OutlineInputBorder(
-          borderRadius:  BorderRadius.circular(12),
 
-        ),
-
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide:  const BorderSide(
-            color: Colors.grey,
-          )
-        ),
-
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: Colors.green,
-            width:  2
-          )
-        ),
-
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 15,
+        prefixIcon: prefixIcon != null
+            ? Icon(
+          prefixIcon,
+          color: iconColor,
         )
+            : null,
+
+        suffixIcon: suffixIcon != null
+            ? Icon(
+          suffixIcon,
+          color: iconColor,
+        )
+            : null,
+
+        border: border,
+        enabledBorder: enabledBorder,
+        focusedBorder: focusedBorder,
+        errorBorder: errorBorder,
+
+        contentPadding: contentPadding,
       ),
     );
   }
