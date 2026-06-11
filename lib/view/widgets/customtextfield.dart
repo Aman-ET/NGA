@@ -15,7 +15,7 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextInputAction? textInputAction;
   final int? maxLength;
-  final int? maxLines;
+  final int maxLines;
 
   // Validation
   final String? Function(String?)? validator;
@@ -52,7 +52,7 @@ class CustomTextField extends StatelessWidget {
     this.textInputAction,
 
     this.maxLength,
-    this.maxLines,
+    this.maxLines=1,
 
     this.validator,
 
@@ -85,7 +85,9 @@ class CustomTextField extends StatelessWidget {
       textInputAction: textInputAction,
 
       maxLength: maxLength,
-      maxLines: maxLines,
+      maxLines: obscureText
+        ? 1
+        : maxLines,
 
       validator: validator,
 
